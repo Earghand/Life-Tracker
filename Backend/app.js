@@ -3,7 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
+const { BadRequestError, NotFoundError } = require("./utils/errors")
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
@@ -26,6 +26,19 @@ app.use('/users', usersRouter);
 app.use(function(req, res, next) {
   next(createError(404));
 });
+
+app.use((req,res,next) => {
+  return next(new NotFoundError())
+})
+
+app.use((err, req,res,next) => {
+  const status = err.status || 500
+  const message = err.message;
+
+  return res.status(status).json({
+    error: { message, status},
+  })
+})
 
 // error handler
 app.use(function(err, req, res, next) {
