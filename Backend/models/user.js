@@ -10,7 +10,6 @@ class User {
         return {
             id: user.id,
             email: user.email,
-            rsvpStatus: user.rsvp_status,
             createdAt: user.created_at
         }
     }
@@ -40,7 +39,7 @@ class User {
     }
 
     static async register(credentials) {
-        const requiredFields = ["email", "password", "rsvp_status"]
+        const requiredFields = ["email", "password"]
         requiredFields.forEach(field=> {
             if(!credentials.hasOwnProperty(field)) {
                 throw new BadRequestError(`Missing ${field} in request body.`)
@@ -74,13 +73,12 @@ class User {
         const result = await db.query(`
         INSERT INTO users (
             email,
-            password,
-            rsvp_status
+            password
         )
-        VALUES ($1, $2, $3)
-        RETURNING id, email, rsvp_status, created_at;
+        VALUES ($1, $2)
+        RETURNING id, email, created_at;
         `,
-        [lowercasedEmail, hashedPassword, credentials.rsvp_status]
+        [lowercasedEmail, hashedPassword]
         )
 
         //return the user

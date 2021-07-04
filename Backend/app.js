@@ -10,7 +10,10 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users'); 
 var authRoutes = require("./routes/auth")
 var tests = require("./routes/testing")
+var sleeping = require("./routes/sleeps")
+const security = require("./middleware/security")
 const { PORT } = require('./config');
+
 
 var app = express();
 
@@ -25,11 +28,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
+//for every request, check if a token exists
+//in the authorization header
+//if it does, attach the decoded user to res.locals.
+app.use(security.extractUserFromJwt)
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use("/auth", authRoutes)
 app.use("/testing", tests);
+app.use("/sleep", sleeping);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
