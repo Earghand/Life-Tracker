@@ -2,9 +2,9 @@
 
 # Week 3 Assignment: Life Tracker
 
-Submitted by: **NAME**
+Submitted by: **Elias Arghand**
 
-Deployed Application: [Lifetracker Deployed Site](ADD_LINK_HERE)
+Deployed Application: [Lifetracker Deployed Site](https://sweet-plane.surge.sh/home)
 
 ## Application Features
 
