@@ -4,7 +4,7 @@
 
 Submitted by: **Elias Arghand**
 
-Deployed Application: [Lifetracker Deployed Site](https://sweet-plane.surge.sh/home)
+Deployed Application: [Lifetracker Deployed Site](https://frantic-polish.surge.sh/home)
 
 ## Application Features
 
