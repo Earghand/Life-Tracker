@@ -4,21 +4,45 @@ const { BadRequestError, NotFoundError } = require("../utils/errors")
 
 
 class Sleep {
-    static async listSleeps() {
-        console.log("nahahahah")
+    static async listSleeps(email) {
+        console.log(email);
         const results = await db.query(
            `
             SELECT p.id,
                     p.hours,
                     p.user_id AS "userId",
                     p.created_at AS "createdAt"
-            FROM sleeps AS p
-                JOIN users AS u ON u.id = p.user_id
+            FROM sleeps AS p WHERE p.user_id = (SELECT id from users where email = $1)
             ORDER BY p.created_at DESC
-           ` 
+           `, [email] 
         )
+        console.log(results.rows);
         return results.rows;
     }
+
+    static async weekSleep(email) {
+        const results = await db.query(
+            `
+             SELECT p.id,
+                     p.hours,
+                     p.user_id AS "userId",
+                     p.created_at AS "createdAt"
+             FROM sleeps AS p WHERE p.user_id = (SELECT id from users where email = $1)
+             ORDER BY p.created_at DESC
+            `, [email] 
+         )
+         const totalSleeps = results.rows.length;
+         console.log(results.rows[0])
+         console.log(results.rows.length);
+         let avgSleep = 0;
+         for(let i = 0; i<results.rows.length; i+=1) {
+             avgSleep += results.rows[i].hours;
+         }
+         avgSleep/=results.rows.length;
+         console.log(avgSleep + "AVERAGE");
+        //  console.log(results.rows);
+         return avgSleep;
+     }
 
     static async fetchSleepById(sleepId) {
         console.log("nahahahah")
