@@ -42,7 +42,7 @@ Implement any of the following features to improve the application:
 
 `TODO://` Add the embedded URL code to your animated app walkthrough below. Make sure the video or gif actually renders and animates when viewing this README. (🚫 Remove this paragraph after adding walkthrough video)
 
-<img src="lifeTracker.gif"/>
+<img src="lifeTrackerEdited.gif"/>
 
 ### Reflection
 
