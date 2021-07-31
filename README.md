@@ -44,6 +44,8 @@ Implement any of the following features to improve the application:
 
 <img src="LifeTrackerEdited.gif"/>
 <img src="authentication.gif"/>
+View by ID:
+<img src="byID.gif"/>
 
 ### Reflection
 
